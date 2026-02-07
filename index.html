@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposal Day 💍</title>
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#0a2a3a;
+      --glass: rgba(255,255,255,0.08);
+      --stroke: rgba(255,255,255,0.14);
+      --txt: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --accent: #7c4dff;
+      --accent2:#00e5ff;
+      --good:#22c55e;
+      --bad:#ff4d6d;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      color:var(--txt);
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,77,255,0.25), transparent 60%),
+                  radial-gradient(900px 500px at 80% 30%, rgba(0,229,255,0.18), transparent 60%),
+                  linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    /* floating glow dots */
+    .orb{
+      position:fixed;
+      border-radius:999px;
+      filter: blur(30px);
+      opacity:0.55;
+      pointer-events:none;
+      mix-blend-mode: screen;
+      animation: drift 12s ease-in-out infinite;
+    }
+    .o1{width:220px;height:220px;left:-40px;top:80px;background:rgba(124,77,255,0.35)}
+    .o2{width:260px;height:260px;right:-80px;top:180px;background:rgba(0,229,255,0.28);animation-delay:-3s}
+    .o3{width:180px;height:180px;left:25%;bottom:30px;background:rgba(255,77,109,0.20);animation-delay:-6s}
+    @keyframes drift{
+      0%,100%{transform: translateY(0) translateX(0) scale(1)}
+      50%{transform: translateY(-18px) translateX(16px) scale(1.04)}
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      backdrop-filter: blur(14px);
+      background: rgba(5,8,15,0.55);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav{
+      max-width: 1100px;
+      margin:0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+    .pill{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(124,77,255,0.22), rgba(0,229,255,0.18));
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+      white-space:nowrap;
+    }
+
+    main{max-width:1100px;margin:0 auto;padding: 26px 18px 70px}
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:10px;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+    }
+
+    .card{
+      background: var(--glass);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      backdrop-filter: blur(16px);
+    }
+
+    .title{
+      font-size: clamp(26px, 4vw, 44px);
+      line-height:1.12;
+      margin: 6px 0 10px;
+      letter-spacing:-0.5px;
+    }
+    .sub{
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height:1.55;
+      margin:0 0 14px;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+    .tag{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .typewriter{
+      font-weight:600;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+      position:relative;
+      min-height:64px;
+    }
+    .btn{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight:700;
+      letter-spacing:0.2px;
+      transition: transform .16s ease, filter .16s ease, background .16s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{transform: scale(0.98)}
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(34,197,94,0.95), rgba(0,229,255,0.70));
+      color: rgba(10,12,18,0.95);
+      box-shadow: 0 12px 26px rgba(34,197,94,0.16);
+    }
+    .btnGhost{
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.90);
+      position:relative;
+    }
+    .btn:hover{filter: brightness(1.07)}
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 700px){
+      .grid2{grid-template-columns:1fr}
+    }
+
+    .h3{
+      margin:0 0 10px;
+      font-size: 16px;
+      letter-spacing:0.2px;
+    }
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .li{
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.86);
+      line-height:1.4;
+    }
+    .li small{display:block;color:rgba(255,255,255,0.65);margin-top:4px}
+
+    .inputRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      align-items:center;
+    }
+    input{
+      flex:1;
+      min-width: 180px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.92);
+      outline:none;
+    }
+    input::placeholder{color:rgba(255,255,255,0.50)}
+    .mini{
+      font-size:12px;
+      color: rgba(255,255,255,0.68);
+      margin-top:10px;
+    }
+
+    /* Modal */
+    .backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,0.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 100;
+    }
+    .modal{
+      max-width: 680px;
+      width:100%;
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(10,12,18,0.74);
+      border: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.55);
+      position:relative;
+      overflow:hidden;
+    }
+    .modal::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(500px 220px at 20% 0%, rgba(124,77,255,0.22), transparent 60%),
+                  radial-gradient(420px 220px at 90% 20%, rgba(0,229,255,0.18), transparent 65%);
+      z-index:-1;
+    }
+    .modal h2{margin:0 0 6px;font-size:26px}
+    .modal p{margin:0 0 12px;color:rgba(255,255,255,0.80);line-height:1.55}
+    .modal .row{display:flex;gap:10px;flex-wrap:wrap}
+    .close{
+      position:absolute; right:12px; top:12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.9);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor:pointer;
+    }
+
+    /* Confetti canvas */
+    #confetti{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index: 90;
+      display:none;
+    }
+
+    footer{
+      max-width:1100px;
+      margin: 18px auto 0;
+      padding: 0 18px 26px;
+      color: rgba(255,255,255,0.55);
+      text-align:center;
+      font-size: 12px;
+    }
+    a{color:rgba(0,229,255,0.9);text-decoration:none}
+    a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <canvas id="confetti"></canvas>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span style="font-size:18px;">💍</span>
+        <span id="siteTitle">Proposal Day</span>
+        <span class="pill" id="badge">Long Distance • Same Heart</span>
+      </div>
+      <div class="pill" id="datePill">Feb 8 • Tonight</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="card">
+        <div class="tag" style="display:inline-flex;gap:8px;align-items:center;">
+          <span>✨</span><span id="headlineTag">For my favorite human</span>
+        </div>
+
+        <h1 class="title">
+          <span id="nameHer">HerName</span>,
+          <br />
+          <span class="typewriter" id="typeLine"></span><span id="cursor">|</span>
+        </h1>
+
+        <p class="sub" id="subText">
+          Distance is just geography. You? You’re my home. 🫶
+        </p>
+
+        <div class="inputRow">
+          <input id="yourName" placeholder="Your name (e.g., Kaizen)" />
+          <input id="herName" placeholder="Her name (e.g., My Jaan)" />
+          <button class="btn btnGhost" id="applyNames">Apply ✍️</button>
+        </div>
+
+        <div class="actions" id="actionArea">
+          <button class="btn btnPrimary" id="yesBtn">YES 💚</button>
+          <button class="btn btnGhost" id="noBtn">NO 🙄</button>
+          <button class="btn btnGhost" id="playBtn">Play a vibe 🎧</button>
+        </div>
+
+        <div class="mini">
+          Tip: “NO” button is… emotionally unavailable 😭 (it will dodge, don’t rage).
+        </div>
+
+        <!-- audio: replace src with any mp3 file name you add in same folder (e.g. song.mp3) -->
+        <audio id="song" preload="auto">
+          <!-- Put your file in same folder and rename below -->
+          <source src="song.mp3" type="audio/mpeg" />
+        </audio>
+
+        <div class="meta">
+          <span class="tag">📍Two cities</span>
+          <span class="tag">🕰️One timeline</span>
+          <span class="tag">🔒Locked in</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="h3">Tonight’s Mini Date Plan 🥂</h3>
+        <ul class="list">
+          <li class="li">1) Put phone on charge + headphones 🎧 <small>No mid-call “battery low” trauma pls.</small></li>
+          <li class="li">2) We talk for 10 minutes normally <small>Then I hit you with the plot twist.</small></li>
+          <li class="li">3) We read one promise each <small>Not perfect, just real.</small></li>
+          <li class="li">4) We end with a screenshot selfie <small>Evidence for the future kids 😂</small></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid2">
+      <div class="card">
+        <h3 class="h3">Reasons I Choose You 🫶</h3>
+        <ul class="list" id="reasons">
+          <li class="li">You make normal days feel special.</li>
+          <li class="li">You’re my peace and my chaos (both 😭).</li>
+          <li class="li">With you, “future” feels exciting.</li>
+          <li class="li">Even from far, you feel close.</li>
+        </ul>
+        <div class="inputRow">
+          <input id="newReason" placeholder="Add your own reason…" />
+          <button class="btn btnGhost" id="addReason">Add ➕</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="h3">Tiny Forever Promise 🥹</h3>
+        <p class="sub" style="margin-bottom:10px;">
+          Write one line you’ll actually live by. Not filmy — solid.
+        </p>
+        <div class="inputRow">
+          <input id="promise" placeholder="e.g., ‘I’ll choose you even on hard days.’" />
+          <button class="btn btnGhost" id="savePromise">Save ✅</button>
+        </div>
+        <ul class="list" style="margin-top:12px;">
+          <li class="li" id="promiseCard">Your promise will appear here 💌</li>
+        </ul>
+        <p class="mini">
+          Moral (homie version): Love is not vibes-only. It’s consistency with a heartbeat. 💯
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div class="backdrop" id="backdrop">
+    <div class="modal">
+      <button class="close" id="closeModal">Close ✨</button>
+      <h2 id="modalTitle">She said YES 🥳💍</h2>
+      <p id="modalText">
+        Okay listen… I’m not perfect, but I’m yours. I choose you — today, tomorrow, and in every weird chapter of life.
+      </p>
+      <div class="row">
+        <button class="btn btnPrimary" id="copyMsg">Copy message 📋</button>
+        <button class="btn btnGhost" id="shareHint">Share screenshot 📸</button>
+      </div>
+      <p class="mini" id="copyStatus"></p>
+    </div>
+  </div>
+
+  <footer>
+    Made with chaotic sincerity 💘 • Edit names + reasons and you’re set.
+  </footer>
+
+<script>
+  // ====== Customize defaults ======
+  const defaults = {
+    yourName: "Kaizen",
+    herName: "My Jaan",
+    tag: "For my favorite human",
+    sub: "Distance is just geography. You? You’re my home. 🫶",
+    typeLines: [
+      "I have one serious question…",
+      "Will you be mine — forever? 💍",
+      "Like, officially. No refunds. 😤❤️"
+    ]
+  };
+
+  const el = (id) => document.getElementById(id);
+
+  // apply defaults
+  el("yourName").value = defaults.yourName;
+  el("herName").value = defaults.herName;
+  el("headlineTag").textContent = defaults.tag;
+  el("subText").textContent = defaults.sub;
+
+  // ====== Typewriter ======
+  const typeEl = el("typeLine");
+  const cursor = el("cursor");
+  let lineIndex = 0, charIndex = 0, deleting = false;
+
+  function typeLoop(){
+    const lines = defaults.typeLines;
+    const current = lines[lineIndex];
+
+    if(!deleting){
+      charIndex++;
+      typeEl.textContent = current.slice(0, charIndex);
+      if(charIndex === current.length){
+        deleting = true;
+        setTimeout(typeLoop, 900);
+        return;
+      }
+    } else {
+      charIndex--;
+      typeEl.textContent = current.slice(0, charIndex);
+      if(charIndex === 0){
+        deleting = false;
+        lineIndex = (lineIndex + 1) % lines.length;
+      }
+    }
+    setTimeout(typeLoop, deleting ? 28 : 42);
+  }
+  typeLoop();
+
+  // cursor blink
+  setInterval(()=> cursor.style.opacity = (cursor.style.opacity === "0" ? "1" : "0"), 480);
+
+  // ====== Names apply ======
+  function applyNames(){
+    const y = el("yourName").value.trim() || defaults.yourName;
+    const h = el("herName").value.trim() || defaults.herName;
+    el("nameHer").textContent = h;
+    el("siteTitle").textContent = `For ${h} 💘`;
+    el("badge").textContent = `${y} ↔ ${h} • Long Distance`;
+  }
+  el("applyNames").addEventListener("click", applyNames);
+  applyNames();
+
+  // ====== Add reasons ======
+  el("addReason").addEventListener("click", ()=>{
+    const txt = el("newReason").value.trim();
+    if(!txt) return;
+    const li = document.createElement("li");
+    li.className = "li";
+    li.textContent = txt;
+    el("reasons").appendChild(li);
+    el("newReason").value = "";
+  });
+
+  // ====== Promise save ======
+  el("savePromise").addEventListener("click", ()=>{
+    const p = el("promise").value.trim();
+    el("promiseCard").textContent = p ? `💌 Promise: ${p}` : "Your promise will appear here 💌";
+  });
+
+  // ====== NO button dodge ======
+  const noBtn = el("noBtn");
+  const area = el("actionArea");
+
+  function moveNo(){
+    const areaRect = area.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = areaRect.width - btnRect.width;
+    const maxY = areaRect.height - btnRect.height;
+
+    // keep it within actionArea
+    const x = Math.max(0, Math.min(maxX, Math.random() * maxX));
+    const y = Math.max(0, Math.min(maxY, Math.random() * maxY));
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  ["mouseenter","touchstart","pointerenter"].forEach(evt=>{
+    noBtn.addEventListener(evt, (e)=>{
+      // prevent click on touch
+      if(evt === "touchstart") e.preventDefault();
+      moveNo();
+    }, {passive:false});
+  });
+
+  // ====== YES -> Modal + confetti ======
+  const backdrop = el("backdrop");
+  const confettiCanvas = el("confetti");
+  const ctx = confettiCanvas.getContext("2d");
+  let confettiOn = false;
+  let pieces = [];
+
+  function resizeCanvas(){
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+
+  function startConfetti(){
+    confettiOn = true;
+    confettiCanvas.style.display = "block";
+    pieces = Array.from({length: 180}).map(()=>({
+      x: Math.random()*confettiCanvas.width,
+      y: -20 - Math.random()*confettiCanvas.height,
+      r: 2 + Math.random()*5,
+      vx: -1.8 + Math.random()*3.6,
+      vy: 2.4 + Math.random()*4.4,
+      rot: Math.random()*Math.PI,
+      vr: -0.12 + Math.random()*0.24,
+      a: 0.65 + Math.random()*0.35
+    }));
+    requestAnimationFrame(drawConfetti);
+    setTimeout(stopConfetti, 4200);
+  }
+
+  function stopConfetti(){
+    confettiOn = false;
+    setTimeout(()=> confettiCanvas.style.display = "none", 600);
+  }
+
+  function drawConfetti(){
+    if(!confettiOn && pieces.length === 0) return;
+    ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+
+    for(const p of pieces){
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.vr;
+      p.vy += 0.02; // gravity
+
+      // recycle
+      if(p.y > confettiCanvas.height + 30){
+        p.y = -20;
+        p.x = Math.random()*confettiCanvas.width;
+        p.vy = 2.4 + Math.random()*4.4;
+      }
+
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot);
+
+      // random-ish bright colors without hardcoding theme palette
+      const hue = Math.floor(Math.random()*360);
+      ctx.fillStyle = `hsla(${hue}, 90%, 60%, ${p.a})`;
+      ctx.fillRect(-p.r, -p.r, p.r*2.2, p.r*1.4);
+      ctx.restore();
+    }
+    requestAnimationFrame(drawConfetti);
+  }
+
+  function openModal(){
+    const y = el("yourName").value.trim() || defaults.yourName;
+    const h = el("herName").value.trim() || defaults.herName;
+
+    el("modalTitle").textContent = `${h}, you said YES 🥳💍`;
+    const promise = el("promise").value.trim();
+    el("modalText").textContent =
+      `From ${y} to ${h}: I choose you — not just on cute days, but on real ones too. ` +
+      (promise ? `\n\nMy promise: “${promise}”` : "");
+
+    backdrop.style.display = "flex";
+  }
+
+  el("yesBtn").addEventListener("click", ()=>{
+    startConfetti();
+    openModal();
+  });
+
+  el("closeModal").addEventListener("click", ()=>{
+    backdrop.style.display = "none";
+    el("copyStatus").textContent = "";
+  });
+
+  // ====== Copy message ======
+  el("copyMsg").addEventListener("click", async ()=>{
+    try{
+      const txt = `${el("modalTitle").textContent}\n\n${el("modalText").textContent}\n\n— From your person 💘`;
+      await navigator.clipboard.writeText(txt);
+      el("copyStatus").textContent = "Copied ✅ ab bhej de usko 😤❤️";
+    } catch(e){
+      el("copyStatus").textContent = "Copy nahi ho paaya (iPhone settings vibe) 😭 — just screenshot.";
+    }
+  });
+
+  el("shareHint").addEventListener("click", ()=>{
+    el("copyStatus").textContent = "Screenshot + send. Proof of love. Evidence. Court-approved. 📸😂";
+  });
+
+  // ====== Music play (user interaction required on mobile) ======
+  const song = el("song");
+  el("playBtn").addEventListener("click", async ()=>{
+    try{
+      await song.play();
+      el("playBtn").textContent = "Playing 🎶";
+    } catch(e){
+      el("playBtn").textContent = "Tap again 🎧";
+    }
+  });
+</script>
+</body>
+</html>
